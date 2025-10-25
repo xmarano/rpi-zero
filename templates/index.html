@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citadel Defense</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            citadel: {
+              DEFAULT: '#9663f9',
+              light: '#b89cff',
+              dark: '#6c3fd1',
+            },
+          },
+        },
+      },
+    }
+  </script>
+</head>
+
+<body class="bg-black text-citadel">
+
+  <header class="border-b border-citadel/30">
+    <div class="container mx-auto flex justify-between items-center p-4">
+      <div class="flex items-center space-x-2">
+        <i data-lucide="shield" class="w-8 h-8"></i>
+        <h1 class="text-2xl font-bold tracking-wider">CITADEL DEFENSE</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Content -->
+  <div class="container mx-auto p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Security Status -->
+      <div id="security-status" class="p-6 rounded-lg border border-citadel/30 bg-black/50 backdrop-blur">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">SECURITY STATUS</h2>
+          <i data-lucide="shield" class="w-6 h-6"></i>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between mb-2">
+              <span>System Integrity</span>
+              <span id="security-level">0%</span>
+            </div>
+            <div class="w-full bg-citadel-dark/30 rounded-full h-2">
+              <div id="security-progress" class="bg-citadel h-2 rounded-full transition-all duration-500"
+                style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="text-center p-3 border border-citadel/30 rounded">
+              <div id="active-threats" class="text-2xl font-bold">0</div>
+              <div class="text-sm opacity-70">Active Threats</div>
+            </div>
+            <div class="text-center p-3 border border-citadel/30 rounded">
+              <div class="text-2xl font-bold">98%</div>
+              <div class="text-sm opacity-70">Defense Rating</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="p-6 rounded-lg border border-citadel/30 bg-black/50 backdrop-blur">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">TERMINAL</h2>
+          <i data-lucide="terminal" class="w-6 h-6"></i>
+        </div>
+        <div class="font-mono text-sm space-y-2">
+          <div>[SYSTEM] Initializing defense protocols...</div>
+          <div>[ALERT] Scanning for vulnerabilities...</div>
+          <div class="text-yellow-400">[WARNING] Potential breach detected in sector 7</div>
+          <div class="text-citadel">[SUCCESS] Firewall update complete</div>
+        </div>
+      </div>
+
+      <!-- Active Missions -->
+      <div class="p-6 rounded-lg border border-citadel/30 bg-black/50 backdrop-blur">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">ACTIVE MISSIONS</h2>
+          <i data-lucide="zap" class="w-6 h-6"></i>
+        </div>
+        <div class="space-y-4">
+          <div class="p-3 border border-citadel/30 rounded">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold">Firewall Breach</span>
+              <span class="text-sm">75%</span>
+            </div>
+            <div class="w-full bg-citadel-dark/30 rounded-full h-2">
+              <div class="bg-citadel h-2 rounded-full" style="width: 75%"></div>
+            </div>
+          </div>
+          <div class="p-3 border border-citadel/30 rounded">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold">Data Encryption</span>
+              <span class="text-sm">45%</span>
+            </div>
+            <div class="w-full bg-citadel-dark/30 rounded-full h-2">
+              <div class="bg-citadel h-2 rounded-full" style="width: 45%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Threat Map -->
+      <div class="p-6 rounded-lg border border-citadel/30 bg-black/50 backdrop-blur">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">THREAT MAP</h2>
+          <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+        </div>
+        <div id="threat-map" class="grid grid-cols-8 gap-1 h-32">
+          {% for i in range(64) %}
+          <div class="border border-citadel/10 rounded"></div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- System Stats -->
+      <div class="p-6 rounded-lg border border-citadel/30 bg-black/50 backdrop-blur">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">SYSTEM STATS</h2>
+          <i data-lucide="terminal" class="w-6 h-6"></i>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-center p-3 border border-citadel/30 rounded">
+            <div class="text-2xl font-bold">127</div>
+            <div class="text-sm opacity-70">Active Nodes</div>
+          </div>
+          <div class="text-center p-3 border border-citadel/30 rounded">
+            <div class="text-2xl font-bold">1.2ms</div>
+            <div class="text-sm opacity-70">Response Time</div>
+          </div>
+          <div class="text-center p-3 border border-citadel/30 rounded">
+            <div class="text-2xl font-bold">99.9%</div>
+            <div class="text-sm opacity-70">Uptime</div>
+          </div>
+          <div class="text-center p-3 border border-citadel/30 rounded">
+            <div class="text-2xl font-bold">42TB</div>
+            <div class="text-sm opacity-70">Data Secured</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="p-6 rounded-lg border border-citadel/30 bg-black/50 backdrop-blur">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">QUICK ACTIONS</h2>
+          <i data-lucide="zap" class="w-6 h-6"></i>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <button class="p-3 border border-citadel/30 rounded hover:bg-citadel/20 transition-colors">
+            Scan System
+          </button>
+          <button class="p-3 border border-citadel/30 rounded hover:bg-citadel/20 transition-colors">
+            Update Firewall
+          </button>
+          <button class="p-3 border border-citadel/30 rounded hover:bg-citadel/20 transition-colors">
+            Clear Cache
+          </button>
+          <button class="p-3 border border-citadel/30 rounded hover:bg-citadel/20 transition-colors">
+            Backup Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let securityLevel = 0;
+    function updateDashboard() {
+      securityLevel = (securityLevel + 1) % 100;
+      const alerts = Math.floor(Math.random() * 5);
+      const isGlitching = Math.random() > 0.9;
+
+      document.getElementById('security-level').textContent = securityLevel + '%';
+      document.getElementById('security-progress').style.width = securityLevel + '%';
+      document.getElementById('active-threats').textContent = alerts;
+
+      const securityStatus = document.getElementById('security-status');
+      if (isGlitching) {
+        securityStatus.classList.add('border-red-500', 'animate-pulse');
+      } else {
+        securityStatus.classList.remove('border-red-500', 'animate-pulse');
+      }
+
+      const threatMap = document.getElementById('threat-map');
+      if (threatMap) {
+        threatMap.querySelectorAll('div').forEach(cell => {
+          if (Math.random() > 0.8) {
+            cell.classList.add('bg-citadel/20');
+          } else {
+            cell.classList.remove('bg-citadel/20');
+          }
+        });
+      }
+    }
+    setInterval(updateDashboard, 2000);
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
